@@ -3,6 +3,66 @@
   <head>
     <meta charset="UTF-8">
     <title>Redirecting...</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding-top: 50px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .circle-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 10px solid #f3f3f3;
+        margin: 0 auto;
+      }
+
+      .circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        clip: rect(0, 150px, 150px, 75px);
+        border: 10px solid #4caf50;
+        transform: rotate(0deg);
+        animation: fillCircle 3s linear forwards;
+      }
+
+      .circle:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        clip: rect(0, 75px, 150px, 0);
+        border: 10px solid #f3f3f3;
+      }
+
+      @keyframes fillCircle {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .message {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+
+    </style>
     <script>
       setTimeout(function() {
         window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec";
@@ -11,6 +71,9 @@
   </head>
   <body>
     <h2>Redirecting in 3 seconds...</h2>
-    <p>If you are not redirected, <a href="https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec">click here</a>.</p>
+    <div class="circle-container">
+      <div class="circle"></div>
+    </div>
+    <p class="message">If you are not redirected, <a href="https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec">click here</a>.</p>
   </body>
 </html>
