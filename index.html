@@ -51,11 +51,14 @@
       let countdownInterval;
 
       function updateCountdown() {
-        document.getElementById("countdown").textContent = countdownValue;
-        countdownValue--;
+        if (countdownValue >= 0) {
+          document.getElementById("countdown").textContent = countdownValue;
+          countdownValue--;
+        }
 
+        // Stop the countdown and redirect when it reaches 0
         if (countdownValue < 0) {
-          clearInterval(countdownInterval); // Stop the countdown when it reaches 0
+          clearInterval(countdownInterval); // Stop the countdown
           window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec"; // Redirect
         }
       }
