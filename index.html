@@ -39,37 +39,16 @@
         font-size: 16px;
       }
 
-      .countdown {
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-
     </style>
     <script>
-      let countdownValue = 3;
-      let countdownInterval;
-
-      function updateCountdown() {
-        if (countdownValue >= 0) {
-          document.getElementById("countdown").textContent = countdownValue;
-          countdownValue--;
-        }
-        
-        // Stop the countdown and redirect when it reaches 0
-        if (countdownValue < 0) {
-          clearInterval(countdownInterval); // Stop the countdown
-          window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec"; // Redirect
-        }
-      }
-
-      countdownInterval = setInterval(updateCountdown, 1000); // Update countdown every second
+      setTimeout(function() {
+        window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec";
+      }, 3000); // Redirects after 3 seconds
     </script>
   </head>
   <body>
-    <h2>Redirecting in</h2>
+    <h2>Redirecting...</h2>
     <div class="circle-container"></div>
-    <div id="countdown" class="countdown">3</div>
     <p class="message">If you are not redirected, <a href="https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec">click here</a>.</p>
   </body>
 </html>
