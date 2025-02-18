@@ -48,17 +48,19 @@
     </style>
     <script>
       let countdownValue = 3;
+      let countdownInterval;
 
       function updateCountdown() {
         document.getElementById("countdown").textContent = countdownValue;
         countdownValue--;
 
         if (countdownValue < 0) {
-          window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec";
+          clearInterval(countdownInterval); // Stop the countdown when it reaches 0
+          window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec"; // Redirect
         }
       }
 
-      setInterval(updateCountdown, 1000); // Update countdown every second
+      countdownInterval = setInterval(updateCountdown, 1000); // Update countdown every second
     </script>
   </head>
   <body>
