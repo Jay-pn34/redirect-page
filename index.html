@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" >
-    <title>Redirecting...</title>
+    <meta charset="UTF-8">
+    <title>Term Work Generator</title>
     <style>
       body {
         text-align: center;
@@ -14,41 +14,50 @@
         margin-bottom: 20px;
       }
 
-      .circle-container {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        border: 10px solid #f3f3f3;
-        border-top: 10px solid #4caf50;
-        animation: rotateCircle 3s linear infinite;
-        margin: 0 auto;
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
       }
 
-      @keyframes rotateCircle {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      .message {
-        margin-top: 20px;
+      .redirect-button {
+        display: block;
+        width: 250px;
+        padding: 12px;
         font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
       }
 
+      .redirect-button:hover {
+        background-color: #45a049;
+      }
     </style>
     <script>
-      setTimeout(function() {
-        window.location.href = "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec";
-      }, 3000); // Redirects after 3 seconds
+      // Object to store links for easy updating
+      const links = {
+        github: "https://github.com/Jay-pn34",
+        generator1: "https://docs.google.com/forms/d/e/1FAIpQLSeDEyRCHcmtFtCIOz3S9iRAHRBPl6PcuzFBnLd-rDG8uHFyAg/viewform",
+        generator2: "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec",
+        generator3: "https://script.google.com/macros/s/AKfycbyZSPO6lvmBi9aKx9MqaCy4G4_6IMeeo6xpj5gdXZoZElax5DPhx8TAX1mxvgHrZYw6/exec"
+      };
     </script>
   </head>
   <body>
-    <h2>Redirecting...</h2>
-    <div class="circle-container"></div>
-    <p class="message">If you are not redirected, <a href="https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec">click here</a>.</p>
+    <h2>Select a Term Work Generator</h2>
+    <div class="button-container">
+      <button class="redirect-button" onclick="window.location.href = links.generator1">Term Work Generator 1</button>
+      <button class="redirect-button" onclick="window.location.href = links.generator2">Term Work Generator 2</button>
+      <button class="redirect-button" onclick="window.location.href = links.generator3">Term Work Generator 3</button>
+      <button class="redirect-button" onclick="window.location.href = links.github">GitHub Page</button>
+    </div>
   </body>
 </html>
