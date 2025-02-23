@@ -18,23 +18,22 @@
         height: 100vh;
       }
 
-      h2 {
+          h2 {
         font-size: 28px;
         margin-bottom: 20px;
         animation: fadeIn 1.5s ease-in-out;
-      }
+    }
 
-      .button-container {
+    .button-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 15px;
         margin-top: 30px;
         animation: fadeIn 2s ease-in-out;
-      }
+    }
 
-      .redirect-button {
-        display: block;
+    .redirect-button {
         width: 280px;
         padding: 15px;
         font-size: 18px;
@@ -46,34 +45,35 @@
         border-radius: 8px;
         cursor: pointer;
         transition: transform 0.3s, background 0.3s;
-      }
+    }
 
-      .redirect-button:hover {
+    .redirect-button:hover {
         background: linear-gradient(135deg, #4caf50, #1e90ff);
         transform: scale(1.05);
-      }
+    }
 
-      @keyframes fadeIn {
+    @keyframes fadeIn {
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
-      }
-    <script>
-      // Object to store links for easy updating
-      const links = {
-        github: "https://github.com/Jay-pn34",
-        generator1: "https://docs.google.com/forms/d/e/1FAIpQLSeDEyRCHcmtFtCIOz3S9iRAHRBPl6PcuzFBnLd-rDG8uHFyAg/viewform",
-        generator2: "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec",
-        generator3: "https://script.google.com/macros/s/AKfycbyZSPO6lvmBi9aKx9MqaCy4G4_6IMeeo6xpj5gdXZoZElax5DPhx8TAX1mxvgHrZYw6/exec"
-      };
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = {
+            github: "https://github.com/Jay-pn34",
+            generator1: "https://docs.google.com/forms/d/e/1FAIpQLSeDEyRCHcmtFtCIOz3S9iRAHRBPl6PcuzFBnLd-rDG8uHFyAg/viewform",
+            generator2: "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec",
+            generator3: "https://script.google.com/macros/s/AKfycbyZSPO6lvmBi9aKx9MqaCy4G4_6IMeeo6xpj5gdXZoZElax5DPhx8TAX1mxvgHrZYw6/exec"
+        };
 
-      // Ensure buttons redirect on click
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("btn-gen1").addEventListener("click", () => window.location.href = links.generator1);
-        document.getElementById("btn-gen2").addEventListener("click", () => window.location.href = links.generator2);
-        document.getElementById("btn-gen3").addEventListener("click", () => window.location.href = links.generator3);
-        document.getElementById("btn-github").addEventListener("click", () => window.location.href = links.github);
-      });
-    </script>
+        document.querySelectorAll(".redirect-button").forEach(button => {
+            button.addEventListener("click", function() {
+                const target = this.getAttribute("data-target");
+                window.location.href = links[target];
+            });
+        });
+    });
+</script>
   </head>
   <body>
     <h2>Welcome to Jay Patel's Interactive Portal</h2>
