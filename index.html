@@ -57,7 +57,6 @@
         from { opacity: 0; transform: translateY(-20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-    </style>
     <script>
       // Object to store links for easy updating
       const links = {
@@ -66,15 +65,23 @@
         generator2: "https://script.google.com/macros/s/AKfycbyheg3SjWNvkSGElioaqsufpAcYl6fSTWTcOCd2VMYBdnWqUx9oyaW0lWxS2M9lUlfBvQ/exec",
         generator3: "https://script.google.com/macros/s/AKfycbyZSPO6lvmBi9aKx9MqaCy4G4_6IMeeo6xpj5gdXZoZElax5DPhx8TAX1mxvgHrZYw6/exec"
       };
+
+      // Ensure buttons redirect on click
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("btn-gen1").addEventListener("click", () => window.location.href = links.generator1);
+        document.getElementById("btn-gen2").addEventListener("click", () => window.location.href = links.generator2);
+        document.getElementById("btn-gen3").addEventListener("click", () => window.location.href = links.generator3);
+        document.getElementById("btn-github").addEventListener("click", () => window.location.href = links.github);
+      });
     </script>
   </head>
   <body>
     <h2>Welcome to Jay Patel's Interactive Portal</h2>
     <div class="button-container">
-      <button class="redirect-button" onclick="window.location.href = links.generator1">Term Work Generator 1</button>
-      <button class="redirect-button" onclick="window.location.href = links.generator2">Term Work Generator 2</button>
-      <button class="redirect-button" onclick="window.location.href = links.generator3">Term Work Generator 3</button>
-      <button class="redirect-button" onclick="window.location.href = links.github">GitHub Page</button>
+      <button id="btn-gen1" class="redirect-button">Term Work Generator 1</button>
+      <button id="btn-gen2" class="redirect-button">Term Work Generator 2</button>
+      <button id="btn-gen3" class="redirect-button">Term Work Generator 3</button>
+      <button id="btn-github" class="redirect-button">GitHub Page</button>
     </div>
   </body>
 </html>
