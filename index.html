@@ -2,16 +2,26 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Term Work Generator</title>
+    <title>Jay Patel's Interactive Portal</title>
     <style>
       body {
         text-align: center;
-        font-family: Arial, sans-serif;
+        font-family: 'Poppins', sans-serif;
+        background-color: #121212;
+        color: #ffffff;
         padding-top: 50px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
       }
 
       h2 {
+        font-size: 28px;
         margin-bottom: 20px;
+        animation: fadeIn 1.5s ease-in-out;
       }
 
       .button-container {
@@ -20,25 +30,32 @@
         align-items: center;
         gap: 15px;
         margin-top: 30px;
+        animation: fadeIn 2s ease-in-out;
       }
 
       .redirect-button {
         display: block;
-        width: 250px;
-        padding: 12px;
-        font-size: 16px;
+        width: 280px;
+        padding: 15px;
+        font-size: 18px;
         font-weight: bold;
         text-align: center;
-        background-color: #4caf50;
+        background: linear-gradient(135deg, #1e90ff, #4caf50);
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         cursor: pointer;
-        transition: background 0.3s;
+        transition: transform 0.3s, background 0.3s;
       }
 
       .redirect-button:hover {
-        background-color: #45a049;
+        background: linear-gradient(135deg, #4caf50, #1e90ff);
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     </style>
     <script>
@@ -52,7 +69,7 @@
     </script>
   </head>
   <body>
-    <h2>Select a Term Work Generator</h2>
+    <h2>Welcome to Jay Patel's Interactive Portal</h2>
     <div class="button-container">
       <button class="redirect-button" onclick="window.location.href = links.generator1">Term Work Generator 1</button>
       <button class="redirect-button" onclick="window.location.href = links.generator2">Term Work Generator 2</button>
