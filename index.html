@@ -8,7 +8,7 @@
         body {
             text-align: center;
             font-family: 'Poppins', sans-serif;
-            background-color: #121212;
+            background-color: #01050f;
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -16,6 +16,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
 
         h2 {
@@ -56,9 +57,35 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .score-container {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffcc00;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+        }
     </style>
 </head>
 <body>
+    <canvas id="backgroundCanvas"></canvas>
+    <canvas id="missileCanvas"></canvas>
+    <div class="score-container">Score: <span id="score">0</span></div>
     <h2>Welcome to Jay Patel's Interactive Portal</h2>
     <div class="button-container">
         <button class="redirect-button" onclick="redirectTo('generator1')">Term Work Generator V1</button>
@@ -82,7 +109,139 @@
                 alert("Invalid link selected.");
             }
         }
+        
+        const bgCanvas = document.getElementById("backgroundCanvas");
+        const bgCtx = bgCanvas.getContext("2d");
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+
+        let stars = Array.from({ length: 100 }, () => createStar());
+
+        function createStar() {
+            return {
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                size: Math.random() * 2,
+                alpha: Math.random(),
+                fadeSpeed: Math.random() * 0.02 + 0.01
+            };
+        }
+
+        function drawStars() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            stars.forEach(star => {
+                bgCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                bgCtx.beginPath();
+                bgCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                bgCtx.fill();
+                star.alpha += star.fadeSpeed;
+                if (star.alpha >= 1 || star.alpha <= 0) {
+                    star.fadeSpeed *= -1;
+                    if (star.alpha <= 0) {
+                        Object.assign(star, createStar());
+                    }
+                }
+            });
+        }
+        setInterval(drawStars, 50);
+        
+        const canvas = document.getElementById("missileCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let score = 0;
+        let mouseX = canvas.width / 2, mouseY = canvas.height / 2;
+        let missiles = [];
+        
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        class Missile {
+            constructor() {
+                const side = Math.floor(Math.random() * 4);
+                if (side === 0) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = 0;
+                } else if (side === 1) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height;
+                } else if (side === 2) {
+                    this.x = 0;
+                    this.y = Math.random() * canvas.height;
+                } else {
+                    this.x = canvas.width;
+                    this.y = Math.random() * canvas.height;
+                }
+                this.speed = 2 + Math.random() * 2;
+                this.timer = 500;
+                this.angle = 0;
+                this.trail = [];
+            }
+            move() {
+                const angle = Math.atan2(mouseY - this.y, mouseX - this.x);
+                this.x += Math.cos(angle) * this.speed;
+                this.y += Math.sin(angle) * this.speed;
+                this.angle = angle;
+                this.trail.push({ x: this.x, y: this.y, alpha: 1 });
+                if (this.trail.length > 20) this.trail.shift();
+                this.timer--;
+            }
+            draw() {
+                if (this.timer <= 0) {
+                    this.explode();
+                    return;
+                }
+                ctx.fillStyle = "red";
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle + Math.PI / 2);
+                ctx.beginPath();
+                ctx.moveTo(0, -10);
+                ctx.lineTo(-6, 10);
+                ctx.lineTo(6, 10);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+                this.trail.forEach((t, i) => {
+                    ctx.fillStyle = `rgba(255, ${50 + Math.random() * 150}, 0, ${t.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(t.x, t.y, (0.5 + Math.random() * 5), ((Math.random() * 10) - 5), Math.PI * 2);
+                    ctx.fill();
+                    t.alpha -= 0.05;
+                });
+            }
+            explode() {
+                for (let i = 0; i < 10; i++) {
+                    ctx.beginPath();
+                    ctx.arc(this.x + Math.random() * 20 - 10, this.y + Math.random() * 20 - 10, 3 + Math.random() * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, ${Math.random() * 255}, 0, 1)`;
+                    ctx.fill();
+                }
+            }
+        }
+        
+        function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            missiles.forEach((missile, index) => {
+                missile.move();
+                missile.draw();
+                if (Math.hypot(missile.x - mouseX, missile.y - mouseY) < 15) {
+                    score -= 5;
+                    missiles.splice(index, 1);
+                }
+                if (missile.timer <= 0) {
+                    score += 2;
+                    missiles.splice(index, 1);
+                }
+            });
+            document.getElementById("score").textContent = score;
+            requestAnimationFrame(updateGame);
+        }
+        setInterval(() => { if (missiles.length < 10) missiles.push(new Missile()); }, 1000);
+        updateGame();
     </script>
 </body>
 </html>
-
