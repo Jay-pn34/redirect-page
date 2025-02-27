@@ -243,5 +243,34 @@
         setInterval(() => { if (missiles.length < 10) missiles.push(new Missile()); }, 1000);
         updateGame();
     </script>
+    <script>
+    async function trackPageView() {
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwhM9vrtMj15gvUTQmS8TYWpmZpldVsaLIfVLHXkh4lCGSDQO8S_J7jujDw2cptwMTS_g/exec"; // Replace this with your script URL
+
+        let uniqueID = localStorage.getItem("visitorID");
+        if (!uniqueID) {
+            uniqueID = Math.random().toString(36).substr(2, 9);
+            localStorage.setItem("visitorID", uniqueID);
+        }
+
+        // Get IP Address using a free API
+        let ip = "Unknown";
+        try {
+            let response = await fetch("https://api64.ipify.org?format=json");
+            let data = await response.json();
+            ip = data.ip;
+        } catch (error) {
+            console.error("IP Fetch Error:", error);
+        }
+
+        // Send data to Google Apps Script
+        fetch(`${scriptURL}?ip=${ip}&uniqueID=${uniqueID}`)
+            .then(response => response.text())
+            .then(data => console.log("Tracking Success:", data))
+            .catch(error => console.error("Tracking Error:", error));
+    }
+
+    trackPageView();
+</script>
 </body>
 </html>
