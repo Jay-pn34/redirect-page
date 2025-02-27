@@ -270,9 +270,34 @@
             .then(data => console.log("Tracking Success:", data))
             .catch(error => console.error("Tracking Error:", error));
     }
-
     trackPageView();
-</script>
+    </script>
+    <script>
+    function detectDarkReader() {
+    const testElement = document.createElement("div");
+    testElement.style.color = "rgb(255, 255, 255)";
+    document.body.appendChild(testElement);
 
+    setTimeout(() => {
+        const detectedColor = getComputedStyle(testElement).color;
+        if (detectedColor !== "rgb(255, 255, 255)") {
+            const warningBanner = document.createElement("div");
+            warningBanner.textContent = "Dark Reader detected! Please disable it for the best experience.";
+            warningBanner.style.position = "fixed";
+            warningBanner.style.top = "0";
+            warningBanner.style.left = "0";
+            warningBanner.style.width = "100%";
+            warningBanner.style.background = "red";
+            warningBanner.style.color = "white";
+            warningBanner.style.padding = "10px";
+            warningBanner.style.textAlign = "center";
+            warningBanner.style.zIndex = "1000";
+            document.body.appendChild(warningBanner);
+        }
+        testElement.remove();
+    }, 100);
+    }
+    detectDarkReader()
+    </script>
 </body>
 </html>
