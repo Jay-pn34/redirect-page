@@ -245,7 +245,7 @@
     </script>
     <script>
     async function trackPageView() {
-        const scriptURL = "https://script.google.com/macros/s/AKfycbzC5RHcl6lxUjWIDlLwArC7aoXjooYmmGZqjK-RnB-qU-_pDV1zNEAHgbXa40MEQFOuSQ/exec"; // Replace with your script URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwoah7PmikmD808VFXKr1mxBfm-RJVXyE_TnsRFPj0wxgzzOehfRKjY01aTCfgIUrj7_A/exec"; // Replace with your script URL
 
         let uniqueID = localStorage.getItem("visitorID");
         if (!uniqueID) {
@@ -253,8 +253,18 @@
             localStorage.setItem("visitorID", uniqueID);
         }
 
+        // Get IP Address using a free API
+        let ip = "Unknown";
+        try {
+            let response = await fetch("https://api64.ipify.org?format=json");
+            let data = await response.json();
+            ip = data.ip;
+        } catch (error) {
+            console.error("IP Fetch Error:", error);
+        }
+
         // Send data to Google Apps Script
-        fetch(`${scriptURL}?uniqueID=${uniqueID}`)
+        fetch(`${scriptURL}?uniqueID=${uniqueID}&ip=${ip}`)
             .then(response => response.text())
             .then(data => console.log("Tracking Success:", data))
             .catch(error => console.error("Tracking Error:", error));
@@ -262,5 +272,6 @@
 
     trackPageView();
 </script>
+
 </body>
 </html>
